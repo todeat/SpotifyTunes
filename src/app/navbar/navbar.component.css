@@ -1,0 +1,46 @@
+nav {
+    background-color: #191414;
+    overflow: hidden;
+    font-size: 20px;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  nav li {
+    float: left;
+  }
+  
+  nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 18px 20px;
+    text-decoration: none;
+  }
+  
+  nav a:hover {
+    background-color: #1DB954;
+    color: #191414;
+  }
+
+  .profile-image {
+    border-radius: 50%;
+    width: 30px; 
+    height: 30px; 
+    margin-right: 50px;
+  }
+
+  .logout {
+    cursor: pointer;
+    margin-right: 10px;
+    padding-top: 16px;
+  }
+  
+  .logout:hover {
+    color: #1DB954; 
+  }
