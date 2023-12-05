@@ -1,0 +1,48 @@
+.artist-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+    scrollbar-width: thin; /* Pentru Firefox */
+    scrollbar-color: #1DB954 #191414; /* Pentru Firefox */
+  
+    /* Pentru browserele bazate pe WebKit (Chrome, Safari, Edge) */
+    &::-webkit-scrollbar {
+      width: 5px; /* Ajustează lățimea scrollbar-ului */
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #1DB954; /* Culoarea thumb-ului */
+      border-radius: 5px; /* Rotunjirea colțurilor thumb-ului */
+    }
+  }
+  
+  /* Ascunde bara de derulare la hover peste container */
+  .artist-container:hover::-webkit-scrollbar-thumb {
+    background-color: #1DB954;
+  }
+  
+  .container {
+    margin-right: 20px;
+    color: white;
+    background-color: rgb(88, 86, 86);
+    padding: 15px;
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+    border-radius: 10px;
+  }
+  
+  .text-lg {
+    font-size: 1.25rem;
+  }
+  
+  .bold {
+    font-weight: bold;
+  }
+  
+  .artist-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }

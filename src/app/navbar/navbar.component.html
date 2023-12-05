@@ -1,0 +1,16 @@
+<nav>
+    <ul>
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/library">Your music</a></li>
+          <li><a routerLink="/recom">Recommandations</a></li>
+        </div>
+        <div style="margin-right: 50px; color: white; display: flex; text-align: center; justify-content: space-between;">
+            <div style="padding: 18px 20px;">{{ user.name }}</div>   
+            <img style="padding: 15px 17px;" [src]="user.img" alt="User Image" class="profile-image">
+            <div class="logout" (click)="logout()"><i class="fa-solid fa-right-from-bracket fa-xl"></i></div>
+        </div>
+        </div>
+    </ul>
+  </nav>

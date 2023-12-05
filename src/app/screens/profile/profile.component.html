@@ -1,0 +1,6 @@
+<h1>Spotify Profile</h1>
+<div *ngIf="user">
+  <h1>Welcome, {{ user.name }}</h1>
+  <img [src]="user.img" alt="User Image">
+  <p>User ID: {{ user.id }}</p>
+</div>
