@@ -1,9 +1,14 @@
-<h2>Your Top 20 artists</h2>
-<div class="artist-container">
-    <div *ngFor="let artist of artists">
-      <div class="container">
-        <span class="text-lg bold" style="">{{artist.name}}</span>
-        <img [src]="artist.image" alt="Artist Image" class="artist-image">
-      </div>
-    </div>
+<div class="section-container">
+<h2>Your Top 20 Artists</h2>
+<div class="artist-list-container">
+  <ol class="artist-list">
+    <li *ngFor="let artist of artists; let i = index" class="artist-container">
+      <img [src]="artist.image" alt="Artist Image" class="artist-image">
+      <span class="artist-details">
+        <span class="artist-rank">{{ i + 1 }}.</span>
+        <span class="artist-name">{{ artist.name }}</span>
+      </span>
+    </li>
+  </ol>
+</div>
 </div>

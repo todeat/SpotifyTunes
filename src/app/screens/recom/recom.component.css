@@ -1,0 +1,18 @@
+.content-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  app-artist-list, app-top-tracks {
+    width: 48%; 
+  }
+
+  @media (max-width: 768px) {
+    .content-container {
+      flex-direction: column;
+    }
+  
+    app-artist-list, app-top-tracks {
+      width: 100%; 
+    }
+  }

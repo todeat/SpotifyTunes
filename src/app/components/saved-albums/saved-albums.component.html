@@ -1,0 +1,10 @@
+<h2>Your Albums</h2>
+<div class="playlist-container">
+  <div *ngFor="let album of savedAlbums"  style="justify-content: center;">
+    <div class="container">
+        <img [src]="album.image" alt="Playlist Image" class="playlist-image">
+        <div class="playlist-name">{{ album.name }}</div>
+    </div>
+    <button (click)="removeAlbumFromLibrary(album.id)" style="width: 140px;">Remove</button>
+  </div>
+</div>

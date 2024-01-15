@@ -5,12 +5,12 @@
 
 
     &::-webkit-scrollbar {
-        width: 5px; /* Ajustează lățimea scrollbar-ului */
+        width: 5px; 
       }
     
       &::-webkit-scrollbar-thumb {
-        background-color: #1DB954; /* Culoarea thumb-ului */
-        border-radius: 5px; /* Rotunjirea colțurilor thumb-ului */
+        background-color: #1DB954; 
+        border-radius: 5px; 
       }
   }
   

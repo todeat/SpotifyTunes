@@ -14,7 +14,14 @@ import { RecomComponent } from './screens/recom/recom.component';
 import { LoginComponent } from './screens/login/login.component';
 import { ArtistListComponent } from './components/artist-list/artist-list.component';
 import { SongsListComponent } from './components/songs-list/songs-list.component';
-
+import { PlaylistgeneratorComponent } from './components/playlistgenerator/playlistgenerator.component';
+import { FormsModule } from '@angular/forms';
+import { UserPlaylistComponent } from './components/user-playlist/user-playlist.component';
+import { NewReleaseComponent } from './components/new-release/new-release.component';
+import { SavedAlbumsComponent } from './components/saved-albums/saved-albums.component';
+import { CurrentlyPlayingComponent } from './components/currently-playing/currently-playing.component';
+import { PlayerComponentComponent } from './components/player-component/player-component.component';
+import { TopTracksComponent } from './components/top-tracks/top-tracks.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,12 +33,20 @@ import { SongsListComponent } from './components/songs-list/songs-list.component
     RecomComponent,
     LoginComponent,
     ArtistListComponent,
-    SongsListComponent
+    SongsListComponent,
+    PlaylistgeneratorComponent,
+    UserPlaylistComponent,
+    NewReleaseComponent,
+    SavedAlbumsComponent,
+    CurrentlyPlayingComponent,
+    PlayerComponentComponent,
+    TopTracksComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

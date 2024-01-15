@@ -13,13 +13,20 @@ export function SpotifyUserToUser(user: SpotifyApi.CurrentUsersProfileResponse):
     };
   }
 
-export function SpotifyPlaylistToPlaylist(playlist: SpotifyApi.PlaylistObjectSimplified): IPlaylist {
-  return {
-    id: playlist.id,
-    name: playlist.name,
-    image: playlist.images[0].url,
+  export function SpotifyPlaylistToPlaylist(playlist: SpotifyApi.PlaylistObjectSimplified): IPlaylist {
+    let imageUrl = 'default-image-url'; 
+
+    if (playlist.images && playlist.images.length > 0) {
+      imageUrl = playlist.images[0].url;
+    }
+  
+    return {
+      id: playlist.id,
+      name: playlist.name,
+      image: imageUrl,
+      tracks: [],
+    };
   }
-}
 
 export function SpotifySinglePlaylistToPlaylist(playlist: SpotifyApi.PlaylistObjectFull): IPlaylist {
   if(!playlist)
@@ -61,6 +68,7 @@ export function SpotifyTrackToTrack(track: SpotifyApi.TrackObjectFull): ITrack {
     explicit: track.explicit,
     preview_url: track.preview_url,
     uri: track.uri,
+    albumImage: track.album.images[0].url,
   }
 }
 

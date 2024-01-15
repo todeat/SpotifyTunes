@@ -1,0 +1,61 @@
+.playlist-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #1DB954 #191414;
+  
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #1DB954;
+      border-radius: 5px;
+    }
+  }
+  
+  .playlist-container:hover::-webkit-scrollbar-thumb {
+    background-color: #1DB954;
+  }
+  
+  .playlist-image {
+    width: 120px; 
+    height: 120px; 
+    border-radius: 10px;
+  }
+
+  .playlist-name {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 1rem;
+    color: rgb(255, 255, 255);
+  }
+
+  .container {
+    margin-right: 20px;
+    color: white;
+    background-color: rgb(88, 86, 86);
+    /* width: 200px; */
+    height: 180px;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1DB954;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  button:hover {
+    background-color: #17a34a;
+  }
+  

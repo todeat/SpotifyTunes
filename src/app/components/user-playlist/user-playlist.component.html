@@ -1,0 +1,25 @@
+<div class="playlist-container">
+  <div *ngFor="let playlist of playlists" 
+       class="container" 
+       (click)="onClickPlaylist(playlist.id)">
+    <img [src]="playlist.image" alt="Playlist Image" class="playlist-image">
+    <div class="playlist-name">{{ playlist.name }}</div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="showModal">
+  <h2>Playlist Songs</h2>
+<div class="liked-songs-container">
+  <div class="track-list">
+    <div class="track-container" *ngFor="let track of currentPlaylistTracks">
+      <img [src]="track.album.image" alt="Album Image" class="album-image">
+      <div class="track-details">
+        <div class="track-name">{{ track.name }}</div>
+        <div class="artist-name">{{ track.artists[0].name }}</div>
+      </div>
+      <div class="duration">{{ track.duration_ms }}</div>
+    </div>
+  </div>
+</div>
+<button (click)="onCloseModal()">Close</button>
+</div>

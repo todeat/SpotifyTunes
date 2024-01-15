@@ -5,6 +5,7 @@ export interface ITrack {
   id: string;
   name: string;
   album: IAlbum;
+  albumImage: string;
   artists: {
     name: string;
     id: string;
@@ -14,4 +15,5 @@ export interface ITrack {
   explicit: boolean;
   preview_url: string;
   uri: string;
+
 }

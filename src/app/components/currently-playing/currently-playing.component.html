@@ -1,0 +1,13 @@
+  <div *ngIf="currentTrack">
+      <div class="track-container">
+        <img [src]="currentTrack.album.image" alt="Album Image" class="album-image">
+        <div class="track-details">
+          <div class="track-name">{{ currentTrack.name }}</div>
+          <div class="artist-name" *ngFor="let artist of currentTrack.artists; let last = last">
+            {{ artist.name }}<span *ngIf="!last">, </span></div>
+        </div>
+        <div class="duration">{{ currentTrack.duration_ms }}</div>
+      </div>
+        <button (click)="back()"><i class="fa-solid fa-backward"></i></button>
+        <button (click)="next()"><i class="fa-solid fa-forward"></i></button>
+</div>

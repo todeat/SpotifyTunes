@@ -1,0 +1,9 @@
+<div class="playlist-container">
+    <div *ngFor="let album of albums" >
+    <div class="container">
+      <img [src]="album.image" alt="Album Img" class="playlist-image">
+      <div class="playlist-name">{{ album.name }}</div>
+    </div>
+    <button (click)="addToLibrary(album)" style="width: 140px;">Add to Library</button>
+</div>
+</div>

@@ -1,0 +1,14 @@
+<div class="section-container">
+<h2>Your Top 20 Tracks</h2>
+<div class="track-list-container">
+  <ol class="track-list">
+    <li *ngFor="let track of topTracks; let i = index" class="track-container">
+      <img [src]="track.albumImage" alt="Album Image" class="album-image">
+      <span class="track-details">
+        <span class="track-rank">{{ i + 1 }}.</span>
+        <span class="track-name">{{ track.name }}</span>
+      </span>
+    </li>
+  </ol>
+</div>
+</div>

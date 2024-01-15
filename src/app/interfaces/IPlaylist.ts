@@ -4,5 +4,5 @@ export interface IPlaylist {
   id: string;
   name: string;
   image: string;
-  tracks?: ITrack[];
+  tracks: ITrack[];
 }

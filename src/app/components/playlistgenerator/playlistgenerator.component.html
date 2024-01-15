@@ -1,0 +1,26 @@
+<div class="playlist-action-container">
+  <button (click)="showModal = true" class="playlist-action-button">
+    Create Recommendation Playlist
+  </button>
+</div>
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h2>Select a Genre</h2>
+    <div class="genre-buttons">
+      <button
+        *ngFor="let genre of genres"
+        [class.selected-genre]="selectedGenre === genre"
+        (click)="selectGenre(genre)"
+      >
+        {{ genre }}
+      </button>
+    </div>
+    <div style="display: flex; justify-content: space-between;">
+      <button (click)="showModal = false" class="close">Close</button>
+      <button (click)="createRecommendedPlaylist(); showModal = false">
+        Done
+      </button>
+    </div>
+    
+  </div>
+</div>

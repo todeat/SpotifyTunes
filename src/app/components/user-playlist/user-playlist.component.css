@@ -1,0 +1,138 @@
+.playlist-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #1DB954 #191414;
+  
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #1DB954;
+      border-radius: 5px;
+    }
+  }
+  
+  .playlist-container:hover::-webkit-scrollbar-thumb {
+    background-color: #1DB954;
+  }
+  
+  .playlist-image {
+    width: 120px; 
+    height: 120px; 
+    border-radius: 10px;
+  }
+
+  .playlist-name {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 1rem;
+    color: rgb(255, 255, 255);
+  }
+
+  .container {
+    margin-right: 20px;
+    color: white;
+    background-color: rgb(88, 86, 86);
+    width: 200px;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1DB954;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  button:hover {
+    background-color: #17a34a;
+  }
+  
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    width: 50%; /* sau orice dimensiune preferi */
+    /* height: 70%;  */
+  }
+  
+  .modal-content {
+    max-height: 80%;
+    overflow-y: auto;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
+  button {
+    /* stilizează butonul de închidere după preferințe */
+  }
+
+  .liked-songs-container {
+    max-height: 700px; 
+    overflow-y: auto; 
+    padding: 10px;
+
+  }
+  
+  .track-list {
+
+  }
+  
+  .track-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .album-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .track-details {
+    flex-grow: 1;
+  }
+  
+  .track-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .artist-name {
+    color: #888;
+  }
+  
+  .duration {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    color: #888;
+  }
+  

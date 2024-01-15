@@ -4,17 +4,20 @@ import {Observable, of} from 'rxjs';
 import { SpotifyConfig } from 'src/environments/environment';
 import Spotify from 'spotify-web-api-js';
 import { Router } from '@angular/router';
-import { SpotifyArtistToArtist, SpotifyPlaylistToPlaylist, SpotifySinglePlaylistToPlaylist, SpotifyTrackToTrack, SpotifyUserToUser } from './shared/SpotifyHelper';
+import { SpotifyAlbumToAlbum, SpotifyArtistToArtist, SpotifyPlaylistToPlaylist, SpotifySinglePlaylistToPlaylist, SpotifyTrackToTrack, SpotifyUserToUser } from './shared/SpotifyHelper';
 import { IPlaylist } from './interfaces/IPlaylist';
 import { IArtist } from './interfaces/IArtist';
 import { ITrack } from './interfaces/ITrack';
 import { BehaviorSubject } from 'rxjs';
+import { IAlbum } from './interfaces/IAlbum';
 
 interface IUser {
   id: string;
   name: string;
   img: string;
 }
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -79,15 +82,18 @@ export class SpotifyService {
   }
 
   getLoginUrl() {
-    const authEndpoint = `${SpotifyConfig.authEndPoint}?client_id=${SpotifyConfig.clientId}&redirect_uri=${SpotifyConfig.redirectUrl}&scope=${SpotifyConfig.scopes.join("%20")}&response_type=token&show_dialog=true`;
-    return authEndpoint;
+    const authEndpoint = `${SpotifyConfig.authEndPoint}`;
+    const clientId = SpotifyConfig.clientId;
+    const redirectUri = SpotifyConfig.redirectUrl;
+    const scopes = SpotifyConfig.scopes.join("%20");
+  
+    return `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes}&response_type=token&show_dialog=true`;
   }
 
   async getPlaylists(offset = 0, limit = 50): Promise<IPlaylist[]> {
     const playlists = await this.spotifyApi.getUserPlaylists(this.user.id, {offset, limit});
     return playlists.items.map(playlist => SpotifyPlaylistToPlaylist(playlist));
   }
-
 
 
   async getPlaylistTracks(playlistId: string, offset = 0, limit = 50) {
@@ -108,6 +114,11 @@ export class SpotifyService {
     return topArtists.items.map(spotifyArtist => SpotifyArtistToArtist(spotifyArtist));
   }
 
+  async getTopTracks(limit: number = 20): Promise<ITrack[]> {
+    const topTracks = await this.spotifyApi.getMyTopTracks({limit});
+    return topTracks.items.map(spotifyTrack => SpotifyTrackToTrack(spotifyTrack));
+  }
+
   async getTracks(offset = 0, limit = 50): Promise<ITrack[]> {
     const tracks = await this.spotifyApi.getMySavedTracks({offset, limit});
     return tracks.items.map(x => SpotifyTrackToTrack(x.track));
@@ -119,17 +130,6 @@ export class SpotifyService {
     });
   }
 
-  // async test(): Promise<any[]> {
-  //   const test = await this.spotifyApi.getRecommendations();
-  //   console.log(test);
-  //   return test.tracks.map(x => SpotifyTrackToTrack(x));
-  // }
-
-  // async getPlayingTrack(): Promise<ITrack> {
-  //   const track = await this.spotifyApi.getMyCurrentPlayingTrack();
-  //   return SpotifyTrackToTrack(track.item);
-  // }
-
   async back() {
     await this.spotifyApi.skipToPrevious();
   }
@@ -137,6 +137,128 @@ export class SpotifyService {
   async next() {
     await this.spotifyApi.skipToNext();
   }
+
+  async play(contextUri?: string): Promise<void> {
+    try {
+      const playOptions = contextUri ? { context_uri: contextUri } : {};
+      await this.spotifyApi.play(playOptions);
+    } catch (error) {
+      console.error('Error playing track:', error);
+      throw error;
+    }
+  }
+  
+
+  async pause(): Promise<void> {
+    try {
+      await this.spotifyApi.pause();
+    } catch (error) {
+      console.error('Error pausing track:', error);
+      throw error;
+    }
+  }
+
+  async createPlaylist(playlistName: string, description: string = '', isPublic: boolean = true): Promise<IPlaylist | null> {
+    try {
+      if (!this.user) {
+        console.error('User is not authenticated');
+        return null;
+      }
+  
+      const newPlaylistData = {
+        name: playlistName,
+        description: description,
+        public: isPublic
+      };
+  
+      const createdPlaylist = await this.spotifyApi.createPlaylist(this.user.id, newPlaylistData);
+      console.log('Created playlist:', createdPlaylist);
+      return SpotifyPlaylistToPlaylist(createdPlaylist);
+    } catch (error) {
+      console.error('Error creating playlist:', error);
+      return null;
+    }
+  }
+
+  async createRecommendedPlaylist(userId:any, seedData:any) {
+
+    const recommendations = await this.spotifyApi.getRecommendations(seedData);
+
+    const playlist = await this.spotifyApi.createPlaylist(userId, { name: 'Recommended Playlist' });
+  
+    const trackUris = recommendations.tracks.map(track => track.uri);
+    await this.spotifyApi.addTracksToPlaylist(playlist.id, trackUris);
+  
+    return playlist;
+  }
+
+  async getUserPlaylists(): Promise<IPlaylist[]> {
+    try {
+      const userId = this.user?.id;
+      if (!userId) {
+        throw new Error('User ID is not available');
+      }
+  
+      const playlists = await this.spotifyApi.getUserPlaylists(userId);
+      return playlists.items.map(SpotifyPlaylistToPlaylist);
+    } catch (error) {
+      console.error('Error getting user playlists:', error);
+      return [];
+    }
+  }
+
+  async getNewReleases(limit: number = 20): Promise<IAlbum[]> {
+    try {
+      const newReleases = await this.spotifyApi.getNewReleases({ limit });
+      const albums = newReleases.albums.items.map(item => SpotifyAlbumToAlbum(item));
+      return albums;
+    } catch (error) {
+      console.error('Error getting new releases:', error);
+      return [];
+    }
+  }
+
+  async addToLibrary(albumId: string): Promise<void> {
+    try {
+      await this.spotifyApi.addToMySavedAlbums([albumId]);
+    } catch (error) {
+      console.error('Error adding album to library:', error);
+      throw error;
+    }
+  }
+
+  async getSavedAlbums(offset: number = 0, limit: number = 20): Promise<IAlbum[]> {
+    try {
+      const data = await this.spotifyApi.getMySavedAlbums({ offset, limit });
+      return data.items.map(item => SpotifyAlbumToAlbum(item.album));
+    } catch (error) {
+      console.error('Error getting saved albums:', error);
+      return [];
+    }
+  }
+
+  async removeFromLibrary(albumId: string): Promise<void> {
+    try {
+      this.spotifyApi.removeFromMySavedAlbums([albumId]);
+    } catch (error) {
+      console.error('Error removing album from library:', error);
+      throw error;
+    }
+  }
+
+  async getCurrentlyPlaying(): Promise<ITrack | null> {
+    try {
+      const response = await this.spotifyApi.getMyCurrentPlayingTrack();
+      if (response && response.item) {
+        return SpotifyTrackToTrack(response.item);
+      }
+      return null;
+    } catch (error) {
+      console.error('Error getting currently playing track:', error);
+      return null;
+    }
+  }
+  
 
 
   logout() {

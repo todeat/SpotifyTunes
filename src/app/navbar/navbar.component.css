@@ -1,9 +1,13 @@
 nav {
-    background-color: #191414;
-    overflow: hidden;
-    font-size: 20px;
-  }
-  
+  background-color: #191414;
+  overflow: hidden;
+  font-size: 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; 
+}
+
   nav ul {
     list-style-type: none;
     margin: 0;
